@@ -269,15 +269,17 @@ Hexagon *HexGrid::getHexagon(int x, int y)
     return hex_p;
 }
 
-// Walk the outside of the hexagons to make a path.  Hexagon sides are labeled:
-//
-//     __0_
-//  1 /    \ 5
-//   /      \
-//   \      /
-//  2 \____/ 4
-//      3
-//
+/**
+ Walk the outside of the hexagons to make a path.  Hexagon sides are labeled:
+
+       __0_
+    1 /    \ 5
+     /      \
+     \      /
+    2 \____/ 4
+        3
+**/
+
 void HexGrid::findShapes()
 {
     if (m_pos_roots.empty())
