@@ -35,7 +35,7 @@ cat >> docker-package.sh << "EOF"
 mkdir build; cd build;
 
 echo "#1 RELNAME= $RELNAME"
-if [ -z ${RELNAME+x} ]
+if [ $RELNAME ]
 then
     echo "### Making with version string = $RELNAME"
     cmake -DPDAL_VERSION_STRING=$RELNAME ..
