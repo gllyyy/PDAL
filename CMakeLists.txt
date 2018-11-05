@@ -28,9 +28,9 @@ mark_as_advanced(CMAKE_VERBOSE_MAKEFILE)
 
 # the next line is the ONLY place in the entire pdal system where
 # the version info is hard-coded
-message("#1 PDAL_VERSION_STRING = ${PDAL_VERSION_STRING})
+message("#1 PDAL_VERSION_STRING = ${PDAL_VERSION_STRING}")
 set(PDAL_VERSION_STRING "1.8.0" CACHE STRING "PDAL version")
-message("#2 PDAL_VERSION_STRING = ${PDAL_VERSION_STRING})
+message("#2 PDAL_VERSION_STRING = ${PDAL_VERSION_STRING}")
 
 DISSECT_VERSION()
 GET_OS_INFO()
