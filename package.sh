@@ -34,7 +34,7 @@ echo "git checkout $GITSHA" >> docker-package.sh
 cat >> docker-package.sh << "EOF"
 mkdir build; cd build;
 
-if [ -v RELNAME ]
+if [ -x ${RELNAME+x} ]
 then
     cmake -DPDAL_VERSION_STRING=$RELNAME ..
 else
