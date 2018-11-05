@@ -15,18 +15,19 @@ DOCKER="docker"
 
 CONTAINERRUN="$DOCKER run -it -d --entrypoint /bin/sh -v $HERE:/data $CONTAINER"
 
-
 CONTAINERID=`$CONTAINERRUN`
 echo "Starting container: " $CONTAINERID
 cat > docker-package.sh << "EOF"
 #!/bin/sh
 
+echo "#0 cnt = $#!"
 if [ $# -eq 0 ]
 then
     RELNAME=$(./bin/pdal-config --version)
 else
     RELNAME=$1
 fi
+echo "#1 RELNAME = $RELNAME"
 
 git clone https://github.com/PDAL/PDAL.git;
 cd /PDAL;
