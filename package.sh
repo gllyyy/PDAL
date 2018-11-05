@@ -16,18 +16,15 @@ DOCKER="docker"
 CONTAINERRUN="$DOCKER run -it -d --entrypoint /bin/sh -v $HERE:/data $CONTAINER"
 
 CONTAINERID=`$CONTAINERRUN`
-echo "Starting container: " $CONTAINERID
 cat > docker-package.sh << "EOF"
 #!/bin/sh
 
-echo "#0 cnt = $#!"
 if [ $# -eq 0 ]
 then
     RELNAME=$(./bin/pdal-config --version)
 else
     RELNAME=$1
 fi
-echo "#1 RELNAME = $RELNAME"
 
 git clone https://github.com/PDAL/PDAL.git;
 cd /PDAL;
@@ -37,6 +34,7 @@ echo "git checkout $GITSHA" >> docker-package.sh
 
 cat >> docker-package.sh << "EOF"
 mkdir build; cd build;
+echo "Building package with PDAL_VERSION_STRING = $PDAL_VERSION_STRING"
 cmake -DPDAL_VERSION_STRING=$RELNAME .. ;
 
 make dist
@@ -73,7 +71,6 @@ if [ $# -eq 1 ]
 then
     RELNAME=$1
 fi
-echo "RELNAME for exec = $RELNAME"
 docker exec -it $CONTAINERID /docker-package.sh $RELNAME
 
 # run this to halt into the container
