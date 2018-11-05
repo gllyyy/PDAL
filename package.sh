@@ -19,10 +19,8 @@ CONTAINERID=`$CONTAINERRUN`
 cat > docker-package.sh << "EOF"
 #!/bin/sh
 
-if [ $# -eq 0 ]
+if [ $# -eq 1 ]
 then
-    RELNAME=$(./bin/pdal-config --version)
-else
     RELNAME=$1
 fi
 
@@ -32,12 +30,19 @@ EOF
 
 echo "git checkout $GITSHA" >> docker-package.sh
 
+
 cat >> docker-package.sh << "EOF"
 mkdir build; cd build;
-echo "Building package with PDAL_VERSION_STRING = $PDAL_VERSION_STRING"
-cmake -DPDAL_VERSION_STRING=$RELNAME .. ;
 
+if [ -v RELNAME ]
+then
+    cmake -DPDAL_VERSION_STRING=$RELNAME ..
+else
+    cmake ..
+fi
 make dist
+RELNAME=$(./bin/pdal-config --version)
+echo "#2 RELNAME = $RELNAME"
 
 OUTPUTDIR="/data/release-$RELNAME"
 if [ ! -e $OUTPUTDIR ]
