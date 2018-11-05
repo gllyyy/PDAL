@@ -37,6 +37,7 @@ mkdir build; cd build;
 echo "#1 RELNAME= $RELNAME"
 if [ -x ${RELNAME+x} ]
 then
+    echo "### Making with version string = $RELNAME"
     cmake -DPDAL_VERSION_STRING=$RELNAME ..
 else
     cmake ..
